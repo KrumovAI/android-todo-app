@@ -8,25 +8,14 @@
         android:id="@+id/mainActivity"
         android:name="com.example.to_doapp.MainActivity"
         android:label="activity_main"
-        tools:layout="@layout/activity_main" />
-    <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.to_doapp.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
+        tools:layout="@layout/activity_main" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.to_doapp.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+            android:id="@+id/action_mainActivity_to_tasksListActivity"
+            app:destination="@id/tasksListActivity" />
+    </activity>
+    <activity
+        android:id="@+id/tasksListActivity"
+        android:name="com.example.to_doapp.TasksListActivity"
+        android:label="activity_tasks_list"
+        tools:layout="@layout/activity_tasks_list" />
 </navigation>

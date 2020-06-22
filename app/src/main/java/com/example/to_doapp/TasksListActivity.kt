@@ -45,16 +45,17 @@ class TasksListActivity : AppCompatActivity() {
 
     private fun initialize() {
         this.tasksLayout.removeAllViews()
-        this.tasks = Database.getAllTasks()
+        this.tasks = Database.getNotFinishedTasks()
 
         val fragmentManager: FragmentManager = this.supportFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
 
-        this.tasks.forEach {
+        this.tasks.forEachIndexed { index, task ->
 
             val taskFragment = TaskFragment()
             val bundle = Bundle()
-            bundle.putParcelable("task", it)
+            bundle.putParcelable("task", task)
+            bundle.putInt("index", index)
             taskFragment.arguments = bundle
 
             fragmentTransaction.add(R.id.tasks_layout, taskFragment)

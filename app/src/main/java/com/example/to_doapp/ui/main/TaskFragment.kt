@@ -1,24 +1,20 @@
 package com.example.to_doapp.ui.main
 
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.JsonReader
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.ContextMenu.ContextMenuInfo
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.beust.klaxon.Klaxon
 import com.example.to_doapp.R
-import kotlinx.android.synthetic.main.task_fragment.*
-import kotlinx.android.synthetic.main.task_fragment.view.*
 import models.Priority
 import models.Task
 import utils.Database
 import utils.DateUtils
+
 
 class TaskFragment : Fragment() {
 
@@ -27,12 +23,16 @@ class TaskFragment : Fragment() {
     }
 
     private var viewModel: Task? = null
+    private var index: Int? = null
 
     private lateinit var layout: LinearLayout
+    private lateinit var contentLayout: LinearLayout
     private lateinit var nameText: TextView
     private lateinit var datesText: TextView
     private lateinit var completedCheckBox: CheckBox
     private lateinit var priorityBorder: View
+
+    private val deleteText: String = "Изтрий"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,12 +41,14 @@ class TaskFragment : Fragment() {
 
         this.layout = inflater.inflate(R.layout.task_fragment, container, false) as LinearLayout
 
+        this.contentLayout = this.layout.findViewById(R.id.task_content)
         this.nameText = this.layout.findViewById(R.id.name)
         this.datesText = this.layout.findViewById(R.id.date_range)
         this.completedCheckBox = this.layout.findViewById(R.id.completed_check_box)
         this.priorityBorder = this.layout.findViewById(R.id.border)
 
         this.viewModel = this.arguments?.getParcelable("task")
+        this.index = this.arguments?.getInt("index")
 
         if (this.viewModel != null) {
             val copy = this.viewModel
@@ -61,6 +63,19 @@ class TaskFragment : Fragment() {
         }
 
         return this.layout
+    }
+
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        val index = this.index
+
+        if (index != null) {
+            menu.add(index, index, 0, deleteText)
+        }
     }
 
     private fun setData(task: Task) {
@@ -81,13 +96,13 @@ class TaskFragment : Fragment() {
 
         when (task.priority) {
             Priority.Low -> {
-                this.priorityBorder.setBackgroundColor(Color.GREEN)
+                this.priorityBorder.setBackgroundResource(R.color.colorSuccess)
             }
             Priority.Medium -> {
-                this.priorityBorder.setBackgroundColor(Color.YELLOW)
+                this.priorityBorder.setBackgroundResource(R.color.colorWarning)
             }
             Priority.High -> {
-                this.priorityBorder.setBackgroundColor(Color.RED)
+                this.priorityBorder.setBackgroundResource(R.color.colorDanger)
             }
             else -> {
                 this.priorityBorder.setBackgroundColor(Color.GRAY)

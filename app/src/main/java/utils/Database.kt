@@ -11,17 +11,13 @@ object Database {
         return this.tasks.toList()
     }
 
+    fun getNotFinishedTasks(): List<Task> {
+        return this.tasks.filter { !it.isComplete }.toList()
+    }
+
     fun addTask(task: Task) {
         task.id = UUID.randomUUID()
         this.tasks.add(task)
-    }
-
-    fun removeTask(taskId: UUID) {
-        val dbTask: Task? = this.tasks.find { it.id == taskId }
-
-        if (dbTask != null) {
-            this.tasks.remove(dbTask)
-        }
     }
 
     fun toggleTask(taskId: UUID?, isCompleted: Boolean) {

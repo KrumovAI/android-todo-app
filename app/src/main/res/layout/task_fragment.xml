@@ -7,10 +7,12 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:layout_marginBottom="5dp"
     tools:context=".ui.main.TaskFragment">
 
     <View
-        android:layout_width="3dp"
+        android:layout_width="5dp"
         android:layout_height="match_parent"
         android:id="@+id/border"/>
 
@@ -19,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
+        android:id="@+id/task_content"
         android:paddingLeft="5dp"
         android:paddingStart="5dp">
 
@@ -26,16 +29,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginBottom="5dp"
             android:id="@+id/name" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="12sp"
             android:id="@+id/date_range"/>
     </LinearLayout>
 
     <CheckBox
+        android:id="@+id/completed_check_box"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/completed_check_box"/>
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" />
 </LinearLayout>

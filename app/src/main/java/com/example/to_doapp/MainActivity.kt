@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.CalendarView
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import models.Priority
 import models.Task
 import utils.Database
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             this.date = DateUtils.createDate(year, month, dayOfMonth)
         }
 
-        this.findViewById<Button>(R.id.new_task_btn).setOnClickListener {
+        this.findViewById<FloatingActionButton>(R.id.fab_add_task).setOnClickListener {
             this.openTaskForm()
         }
 
